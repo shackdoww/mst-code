@@ -16,8 +16,3 @@ render(0);
 let requestStep=0;
 const steps=[{text:'BROWSER → SERVER\nGET /index.html\n\nHTTP asks the server for a document.\nThis is a simplified exchange, not a live request.',button:'2. Receive the response →'},{text:'SERVER → BROWSER\n200 OK\nContent-Type: text/html\n\n<h1>Hello, world!</h1>\n<a href="next.html">Another page</a>',button:'3. Display the page →'},{text:'BROWSER\nHello, world!\nAnother page ↗\n\nThe browser interprets HTML.\nFollowing a link starts another request.',button:'Restart the exchange ↺'}];
 document.querySelector('#request').addEventListener('click',()=>{const s=steps[requestStep];document.querySelector('#network').textContent=s.text;document.querySelector('#request').textContent=s.button;requestStep=(requestStep+1)%steps.length});
-const reflection=document.querySelector('#reflection');
-try{reflection.value=localStorage.getItem('group3-reflection')||''}catch{}
-function updateReflection(){const count=reflection.value.trim()?reflection.value.trim().split(/\s+/).length:0;let status='saved in this browser';try{localStorage.setItem('group3-reflection',reflection.value)}catch{status='browser saving unavailable; use Download'}document.querySelector('#word-count').textContent=`${count} words · ${status}`}
-reflection.addEventListener('input',updateReflection);updateReflection();
-document.querySelector('#download').addEventListener('click',()=>{const blob=new Blob(['Group 3 · Silicon & Web 1.0\nIndividual reflection\n\n'+reflection.value],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='group-3-reflection.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
